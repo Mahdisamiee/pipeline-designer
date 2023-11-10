@@ -1,0 +1,76 @@
+<mat-toolbar color="primary">
+  <img src="../../../assets/favicon.ico" alt="" class="navbar-logo" />
+  <!-- here should  have a menu to change pages -->
+  <h2>PipeLine Designer</h2>
+  <span class="example-spacer"></span>
+
+  <div class="navbar-button-row">
+    <button
+      mat-icon-button
+      matTooltip="Basic"
+      aria-label="Example icon-button with a heart icon"
+    >
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <div class="vl"></div>
+    <button
+      mat-icon-button
+      matTooltip="Basic"
+      aria-label="Example icon-button with a heart icon"
+    >
+      <mat-icon>forum</mat-icon>
+    </button>
+
+    <div class="vl"></div>
+    <button
+      mat-icon-button
+      matTooltip="Basic"
+      aria-label="Example icon-button with a heart icon"
+    >
+      <mat-icon>help</mat-icon>
+    </button>
+  </div>
+  <button
+    color="accent"
+    mat-flat-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Example icon-button with a menu"
+    class="navbar-menu-button"
+  >
+    <mat-icon>person</mat-icon>
+    <!-- this should be a variable of name -->
+    <span>
+      <span>Mohaymen Admin</span>
+      <mat-icon>expand_more</mat-icon>
+    </span>
+  </button>
+  <!-- Navbar Menu -->
+  <mat-menu #menu="matMenu" class="menu">
+    <button mat-menu-item>
+      <!-- <mat-icon>dialpad</mat-icon> -->
+      <span>About Pipeline Designer</span>
+    </button>
+    <hr />
+    <button mat-menu-item>
+      <mat-icon>forum</mat-icon>
+      <span>Community</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>info</mat-icon>
+      <span>Support</span>
+    </button>
+    <hr />
+    <button mat-menu-item>
+      <mat-icon>science</mat-icon>
+      <span>Labs</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>Profile Prefrence</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
