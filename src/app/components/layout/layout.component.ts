@@ -5,11 +5,12 @@ import {takeUntil} from 'rxjs/operators';
 
 // Module Imports
 import {NavBarComponent} from '../nav-bar/nav-bar.component';
+import {AppBarComponent} from '../app-bar/app-bar.component';
 
 /** @title Respond to viewport changes with BreakpointObserver */
 @Component({
   selector: 'app-layout',
-  imports: [NavBarComponent],
+  imports: [NavBarComponent, AppBarComponent],
   templateUrl: 'layout.component.html',
   styleUrls: ['layout.component.css'],
   standalone: true,

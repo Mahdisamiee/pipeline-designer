@@ -1,0 +1,75 @@
+<mat-toolbar class="appbar">
+  <button mat-icon-button class="appbar-btn">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span>{{ title }}</span>
+  <span class="appbar-spacer"></span>
+  <button
+    color="accent"
+    mat-flat-button
+    aria-label="Example icon-button with a menu"
+    class="appbar-status-btn"
+    (click)="toggleRunStatus()"
+  >
+    @if (runStatus) {
+    <div>
+      <mat-icon>play_arrow</mat-icon>
+      <span>Run</span>
+    </div>
+    } @else if (!runStatus) {
+    <div>
+      <mat-icon>stop</mat-icon>
+      <span>Stop</span>
+    </div>
+    }
+  </button>
+  <span class="appbar-spacer"></span>
+  <div class="navbar-button-row">
+    <button
+      mat-icon-button
+      matTooltip="Basic"
+      aria-label="Example icon-button with a heart icon"
+    >
+    <span class="material-symbols-outlined">
+        settings
+        </span>
+    </button>
+    <div class="vl"></div>
+    <button
+      mat-icon-button
+      matTooltip="Basic"
+      aria-label="Example icon-button with a heart icon"
+    >
+      <span class="material-symbols-outlined"> exit_to_app </span>
+    </button>
+    <button
+      mat-icon-button
+      matTooltip="Basic"
+      aria-label="Example icon-button with a heart icon"
+    >
+      <span class="material-symbols-outlined"> upgrade </span>
+    </button>
+
+    <div class="vl"></div>
+    <button
+      mat-icon-button
+      matTooltip="Basic"
+      aria-label="Example icon-button with a heart icon"
+    >
+      <span class="material-symbols-outlined"> arrow_top_right </span>
+    </button>
+    <button
+      mat-icon-button
+      matTooltip="Basic"
+      aria-label="Example icon-button with a heart icon"
+    >
+      <span class="material-symbols-outlined"> arrow_top_left </span>
+    </button>
+  </div>
+  <button mat-icon-button class="example-icon">
+    <span class="material-symbols-outlined"> bottom_panel_open </span>
+  </button>
+  <button mat-icon-button class="example-icon favorite-icon">
+    <span class="material-symbols-outlined"> right_panel_open </span>
+  </button>
+</mat-toolbar>
