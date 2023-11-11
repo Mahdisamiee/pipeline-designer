@@ -30,8 +30,8 @@ export class PipelineTabsComponent implements OnInit {
   ngOnInit() {
     this.myForm = new FormGroup({
       description: new FormControl(''),
-      step: new FormControl({ value: 'PrefixValue', disabled: true }),
-      updated: new FormControl({ value: 'PrefixValue', disabled: true }),
+      step: new FormControl({ value: 'Design', disabled: true }),
+      updated: new FormControl({ value: 'About 22 hours', disabled: true }),
       sideToggle: new FormControl(false),
     });
   }

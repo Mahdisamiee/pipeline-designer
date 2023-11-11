@@ -1,4 +1,4 @@
-<mat-tab-group dynamicHeight>
+<mat-tab-group dynamicHeight fitInkBarToContent>
   <!-- here we have unsame content , we couldnt use @*ngFor loops -->
   <mat-tab label="info" class="info-tab">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="info-form-style">
@@ -44,7 +44,42 @@
   </mat-tab>
 
   <mat-tab label="Metrics">
-    <div class="example-large-box mat-elevation-z4">Large content</div>
+    <h3 class="metric-part-title">General</h3>
+    <p class="metric-part-key">Time Spent</p>
+    <p class="metric-part-value">00:00:00</p>
+
+    <h3 class="metric-part-title">Throughput</h3>
+    <div class="metric-box-values">
+      <div class="metric-part-value">
+        <p>00:00:00</p>
+        <p class="metric-part-value-description">record/sec</p>
+      </div>
+      <div class="metric-part-value">
+        <p>00:00:00</p>
+        <p class="metric-part-value-description">bytes/sec</p>
+      </div>
+    </div>
+    <h3 class="metric-part-title">Volume</h3>
+    <div class="metric-box-values">
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">records read</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">bytes read</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">records produced</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">Bytes produced</p>
+      </div>
+    </div>
+
+    <button mat-stroked-button color="primary">view logs</button>
   </mat-tab>
   <mat-tab label="Variables">
     <div class="example-large-box mat-elevation-z4">Large content</div>
