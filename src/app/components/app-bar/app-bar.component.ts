@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,8 +14,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 export class AppBarComponent {
   title: string = 'PipeLine';
   runStatus: boolean = true;
+  
+  @Output() toggleSideNavEvent = new EventEmitter<void>();
+
+
+  toggleSideNav() {
+    this.toggleSideNavEvent.emit();
+  }
 
   toggleRunStatus() {
     this.runStatus = !this.runStatus;
   }
+
 }
