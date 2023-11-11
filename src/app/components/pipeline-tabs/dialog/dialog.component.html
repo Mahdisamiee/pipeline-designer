@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Dialog Form</h2>
+<mat-dialog-content>
+  <form [formGroup]="myForm">
+    <mat-form-field>
+      <mat-label>Example Input</mat-label>
+      <input matInput formControlName="exampleInput" />
+    </mat-form-field>
+    <!-- Add more form fields as needed -->
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="myForm.value">Save</button>
+</mat-dialog-actions>

@@ -20,20 +20,20 @@
 
 /* info tab style */
 
-.info-form-style {
+.info-form {
   padding: 15px 5px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.toggle-container {
+.info-form__toggle {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.button-row {
+.info-form__buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
