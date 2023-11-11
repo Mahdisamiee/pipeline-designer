@@ -21,6 +21,7 @@ import { PipelineTabsComponent } from '../pipeline-tabs/pipeline-tabs.component'
 })
 export class DetailSideNavComponent {
   showFiller = false;
+  sideNavName: string = 'Pipeline Details';
   @ViewChild('drawer') drawer: MatDrawer;
 
   toggle() {
