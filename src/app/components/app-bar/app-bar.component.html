@@ -30,9 +30,7 @@
       matTooltip="Basic"
       aria-label="Example icon-button with a heart icon"
     >
-    <span class="material-symbols-outlined">
-        settings
-        </span>
+      <span class="material-symbols-outlined"> settings </span>
     </button>
     <div class="vl"></div>
     <button
@@ -66,10 +64,14 @@
       <span class="material-symbols-outlined"> arrow_top_left </span>
     </button>
   </div>
-  <button mat-icon-button class="example-icon">
+  <button mat-icon-button class="example-icon" (click)="openBottomSheet()">
     <span class="material-symbols-outlined"> bottom_panel_open </span>
   </button>
-  <button mat-icon-button class="example-icon favorite-icon" (click)="toggleSideNav()">
+  <button
+    mat-icon-button
+    class="example-icon favorite-icon"
+    (click)="toggleSideNav()"
+  >
     <span class="material-symbols-outlined"> right_panel_open </span>
   </button>
 </mat-toolbar>

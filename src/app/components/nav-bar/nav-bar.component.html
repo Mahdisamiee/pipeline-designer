@@ -48,7 +48,13 @@
   <mat-menu #menu="matMenu" class="menu">
     <button mat-menu-item>
       <!-- <mat-icon>dialpad</mat-icon> -->
-      <span>About Pipeline Designer</span>
+
+      <a
+        routerLink="/pipeline-designer"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        ><span>About Pipeline Designer</span></a
+      >
     </button>
     <hr />
     <button mat-menu-item>

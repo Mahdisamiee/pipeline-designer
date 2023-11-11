@@ -3,12 +3,8 @@
   <app-app-bar (toggleSideNavEvent)="toggleSideNav()"></app-app-bar>
   <app-detail-side-nav #sideNav>
     <div class="main">
-      <p>{{ currentScreenSize }}</p>
-      <p>this is an incrediable component</p>
-
-      gbsfdbgfdsbgb sdkg bsfdbgfdsbgbdg
-          
-      <ng-content />
+      <!-- my pages -->
+      <router-outlet></router-outlet>
     </div>
   </app-detail-side-nav>
 </main>
