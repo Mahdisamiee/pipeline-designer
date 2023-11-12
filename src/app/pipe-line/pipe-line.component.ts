@@ -29,12 +29,14 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
   constructor(private dialog: MatDialog) {}
   private graph!: Graph;
 
-  private openNodeSelectionDialog(initNode: Node): void {
+  private openInitNodeSelectionDialog(initNode: Node): void {
     const dialogRef = this.dialog.open(NodesDialogComponent, {
       width: '250px',
       data: {
         items: [
-          { name: 'Data1', color: 'blue', label: 'Data1' },
+          { name: 'Data1', color: 'teal', label: 'Data 1' },
+          { name: 'Data2', color: 'orange', label: 'Data 2' },
+          { name: 'Data3', color: 'blue', label: 'Data 3' },
           // Add more items as needed
         ],
       },
@@ -55,6 +57,37 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
           label: 'New Destination',
           data: { type: 'destination-node' },
         });
+        this.graph.addNode(dstNode);
+        // this.graph.addEdge({ source: initNode, target: dstNode });
+
+        // center All Items
+      }
+    });
+  }
+  private openDstNodeSelectionDialog(dstNode: Node): void {
+    const dialogRef = this.dialog.open(NodesDialogComponent, {
+      width: '250px',
+      data: {
+        items: [
+          { name: 'Data1', color: 'teal', label: 'Data 1' },
+          { name: 'Data2', color: 'orange', label: 'Data 2' },
+          { name: 'Data3', color: 'blue', label: 'Data 3' },
+          // Add more items as needed
+        ],
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Change initNode attributes based on selection
+        // initNode.attr('body/fill', result.color);
+        dstNode.setAttrs({
+          body: { fill: result.color },
+          label: { text: result.label },
+        });
+
+        // Add a new DstNode connected to initNode at the center
+        
         this.graph.addNode(dstNode);
         // this.graph.addEdge({ source: initNode, target: dstNode });
 
@@ -170,8 +203,12 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
       console.log(node.data);
       if (node.data.type === 'init-node') {
         // DO Changes here
-        this.openNodeSelectionDialog(node);
+        this.openInitNodeSelectionDialog(node);
       }
+      else if(node.data.type === "destination-node"){
+        this.openDstNodeSelectionDialog(node);
+      }
+
     });
     // watch if all nodes removed, Add InitNode
     this.graph.on('node:removed', () => {
@@ -222,13 +259,6 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
     );
   }
 
-  private getGraphCenter(): { x: number; y: number } {
-    const bbox = this.graph.getGraphArea();
-    return {
-      x: bbox.x + bbox.width / 2,
-      y: bbox.y + bbox.height / 2,
-    };
-  }
 }
 
 /**

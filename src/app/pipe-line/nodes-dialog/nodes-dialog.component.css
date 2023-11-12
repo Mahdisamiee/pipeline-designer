@@ -1,0 +1,32 @@
+.mat-dialog-content {
+  padding: 20px;
+}
+
+.list-item {
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+    margin: 5px;
+}
+.list-item span {
+    background-color: gren;
+}
+
+.list-item:hover {
+  background-color: #f5f5f5;
+}
+
+mat-icon {
+  color: green;
+  position: relative;
+  background-color: gray;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

@@ -6,6 +6,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface DialogData {
   items: { name: string; color: string; label: string }[];
@@ -14,7 +15,7 @@ export interface DialogData {
 @Component({
   selector: 'app-nodes-dialog',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatDialogModule],
+  imports: [CommonModule, MatListModule, MatDialogModule, MatIconModule],
   templateUrl: './nodes-dialog.component.html',
   styleUrl: './nodes-dialog.component.css',
 })
