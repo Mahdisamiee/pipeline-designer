@@ -49,14 +49,16 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
           label: { text: result.label },
         });
 
-
-        // Add a new DstNode connected to initNode
+        // Add a new DstNode connected to initNode at the center
         const dstNode = new DstNode({
+          position: { x: 300, y: 0 },
           label: 'New Destination',
           data: { type: 'destination-node' },
         });
         this.graph.addNode(dstNode);
         // this.graph.addEdge({ source: initNode, target: dstNode });
+
+        // center All Items
       }
     });
   }
@@ -85,6 +87,24 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
     this.createStencil();
   }
 
+  /**
+   * ### Create InitNode and Add to Graph
+   *  */
+  private addInitialNode(): void {
+    const initNode = new InitNode({
+      label: 'Click To Add Source',
+      data: { type: 'init-node' },
+    });
+    this.graph.addNode(initNode);
+    this.graph.centerContent();
+  }
+
+  /**
+   * ### Initialize the Graph
+   * #### -settings of graph
+   * #### -graph listeners ( on mousemoves , on click)
+   *
+   */
   private initializeGraph(): void {
     this.graph = new Graph({
       container: document.getElementById('graph-container')!,
@@ -113,40 +133,50 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
       },
     });
 
-    this.graph.addNode(
-      new InitNode({
-        label: 'Click To Add Source',
-        data: { type: 'init-node' },
-      })
-    );
+    // add InitNode to graph
+    this.addInitialNode();
 
-    // ADD TOOLS to Nodes
+    this.graph.centerContent();
+
+    // ********************Graph Listeners
+    // ************ADD TOOLS to Nodes
+    // add remove button */
     this.graph.on('node:mouseenter', ({ node }) => {
       node.addTools({
         name: 'button-remove',
         args: { offset: { x: 12, y: 12 } },
       });
     });
+    // Delete remove Button */
     this.graph.on('node:mouseleave', ({ node }) => {
       node.removeTools();
     });
 
-    // ADD TOOLS to Edges
+    //************ */ ADD TOOLS to Edges
+    // add remove button */
     this.graph.on('edge:mouseenter', ({ edge }) => {
       edge.addTools({
         name: 'button-remove',
       });
     });
+    // Delete remove Button */
     this.graph.on('edge:mouseleave', ({ edge }) => {
       edge.removeTools();
     });
 
-    //
+    // **************** Node Status
+    // open Dialog window to add Sources
     this.graph.on('node:click', ({ node }) => {
       console.log(node.data);
       if (node.data.type === 'init-node') {
         // DO Changes here
         this.openNodeSelectionDialog(node);
+      }
+    });
+    // watch if all nodes removed, Add InitNode
+    this.graph.on('node:removed', () => {
+      if (this.graph.getNodes().length === 0) {
+        this.addInitialNode();
       }
     });
   }
@@ -190,6 +220,14 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
       ],
       'destination'
     );
+  }
+
+  private getGraphCenter(): { x: number; y: number } {
+    const bbox = this.graph.getGraphArea();
+    return {
+      x: bbox.x + bbox.width / 2,
+      y: bbox.y + bbox.height / 2,
+    };
   }
 }
 
