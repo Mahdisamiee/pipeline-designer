@@ -1,0 +1,54 @@
+#container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  border: 1px solid #dfe3e8;
+  max-width: 97%;
+  width: 100%;
+}
+#stencil {
+  flex: 1;
+  height: 700px;
+  position: relative;
+  border-right: 1px solid #dfe3e8;
+  max-width: 100%;
+}
+#graph-container {
+  flex: 3;
+  height: 700px;
+  background-color: white;
+}
+.x6-widget-stencil {
+  background-color: #fff;
+}
+.x6-widget-stencil-title {
+  background-color: #fff;
+}
+.x6-widget-stencil-group-title {
+  background-color: #fff !important;
+}
+.x6-widget-transform {
+  margin: -1px 0 0 -1px;
+  padding: 0px;
+  border: 1px solid #239edd;
+}
+.x6-widget-transform > div {
+  border: 1px solid #239edd;
+}
+.x6-widget-transform > div:hover {
+  background-color: #3dafe4;
+}
+.x6-widget-transform-active-handle {
+  background-color: #3dafe4;
+}
+.x6-widget-transform-resize {
+  border-radius: 0;
+}
+.x6-widget-selection-inner {
+  border: 1px solid #239edd;
+}
+.x6-widget-selection-box {
+  opacity: 0;
+}
