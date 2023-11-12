@@ -7,6 +7,7 @@
   border: 1px solid #dfe3e8;
   max-width: 97%;
   width: 100%;
+  position: relative;
 }
 #stencil {
   flex: 1;
@@ -51,4 +52,14 @@
 }
 .x6-widget-selection-box {
   opacity: 0;
+}
+
+.graph-box {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

@@ -1,7 +1,23 @@
 <div id="container">
+  <div class="graph-box">
+    <button
+      mat-mini-fab
+      color="primary"
+      class="graph-box__btn"
+      (click)="zoomIn()"
+    >
+      <span class="material-symbols-outlined"> add </span>
+    </button>
+    <button
+      mat-mini-fab
+      color="primary"
+      class="graph-box__btn"
+      (click)="zoomOut()"
+    >
+      <span class="material-symbols-outlined"> remove </span>
+    </button>
+  </div>
   <div id="stencil"></div>
   <div id="graph-container"></div>
-
-  
 </div>
 <!-- <app-bottom-sheet></app-bottom-sheet> -->
