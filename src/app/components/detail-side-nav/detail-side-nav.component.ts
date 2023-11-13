@@ -24,7 +24,7 @@ export class DetailSideNavComponent {
   sideNavName: string = 'Pipeline Details';
   currentRoute: string;
   @ViewChild('drawer') drawer: MatDrawer;
-  @Input() pipelineData: {}
+  @Input() pipelineData: { type: string; info: string };
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
@@ -37,5 +37,4 @@ export class DetailSideNavComponent {
   toggle() {
     this.drawer.toggle();
   }
-
 }

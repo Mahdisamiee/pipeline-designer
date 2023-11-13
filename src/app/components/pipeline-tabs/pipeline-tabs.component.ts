@@ -8,10 +8,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 // MY Components
 import { DialogComponent } from './dialog/dialog.component';
 import { TableComponent } from './table/table.component';
+
+// interfaces
+interface StringsFilter {
+  value: string;
+  viewValue: string;
+}
+interface Fields {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-pipeline-tabs',
@@ -25,16 +36,37 @@ import { TableComponent } from './table/table.component';
     MatIconModule,
     MatButtonModule,
     MatSlideToggleModule,
-    TableComponent
+    MatSelectModule,
+    TableComponent,
   ],
   templateUrl: './pipeline-tabs.component.html',
   styleUrl: './pipeline-tabs.component.css',
 })
 export class PipelineTabsComponent implements OnInit {
   myForm: FormGroup;
-  
-  @Input() pipeLineData: any;
 
+  @Input() pipelineData: { type: string; info: string };
+
+  filters: StringsFilter[] = [
+    { value: 'ext-1', viewValue: 'Add Extra Character' },
+    { value: 'up-1', viewValue: 'Change to UpperCase' },
+    { value: 'law-2', viewValue: 'Change to LowerCase' },
+    { value: 'clcLeng-2', viewValue: 'calculate Length' },
+    { value: 'title-2', viewValue: 'Change to TitleCase' },
+    { value: 'ctText-2', viewValue: 'Contains Text' },
+    { value: 'matText-2', viewValue: 'Match Similar Text' },
+    { value: 'sechRe-2', viewValue: 'Search and Replace' },
+    { value: 'remov-2', viewValue: 'Remove Part of Text' },
+    { value: 'maPat-2', viewValue: 'Match Pattern' },
+  ];
+  fields: Fields[] = [
+    { value: 'ext-1', viewValue: 'String 1' },
+    { value: 'up-1', viewValue: 'string 2 data' },
+  ];
+  positions: Fields[] = [
+    { value: 'left', viewValue: 'Left' },
+    { value: 'right', viewValue: 'Right' },
+  ];
 
   constructor(private dialog: MatDialog, private formBuilder: FormBuilder) {}
 
@@ -44,10 +76,12 @@ export class PipelineTabsComponent implements OnInit {
 
   private initializeForm(): void {
     this.myForm = this.formBuilder.group({
-      description: [''],
-      step: [{ value: 'Design', disabled: true }],
-      updated: [{ value: 'About 22 hours', disabled: true }],
+      filterName: [{ value: '' }],
+      processFields: [{ value: '', disabled: false }],
       sideToggle: [false],
+      size: [{ value: 5, disabled: false }],
+      addedChar: [{ value: '0', disabled: false }],
+      position: [{ value: 'left', disabled: false }],
     });
   }
 

@@ -1,10 +1,14 @@
 <mat-drawer-container class="drawer-container" autosize>
-  <mat-drawer #drawer class="side-drawer"  mode="side" position="end">
+  <mat-drawer #drawer class="side-drawer" mode="side" position="end">
     <!-- <ng-container *ngIf="currentRoute === 'pipeline'">
     </ng-container> -->
 
+    @if (pipelineData) {
+    <h2>{{ pipelineData.info }}</h2>
+    }@else {
     <h2>{{ sideNavName }}</h2>
-    <app-pipeline-tabs [pipeLineData]="pipelineData"></app-pipeline-tabs>
+    }
+    <app-pipeline-tabs [pipelineData]="pipelineData"></app-pipeline-tabs>
   </mat-drawer>
 
   <div class="sidenav-content">
