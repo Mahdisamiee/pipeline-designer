@@ -279,12 +279,14 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
           thickness: 1,
         },
       },
+      
       panning: true,
       mousewheel: {
         enabled: true,
         modifiers: ['ctrl', 'meta'],
       },
       connecting: {
+        connector: 'smooth',
         allowEdge: false,
         allowBlank: false,
         allowNode: false,

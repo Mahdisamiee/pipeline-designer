@@ -17,7 +17,7 @@
   max-width: 100%;
 }
 #graph-container {
-  flex: 3;
+  flex: 3 1 auto;
   height: 700px;
   background-color: white;
 }
