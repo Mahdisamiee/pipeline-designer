@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {
   MatBottomSheet,
+  MatBottomSheetRef,
   MatBottomSheetModule,
 } from '@angular/material/bottom-sheet';
 import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
@@ -28,6 +29,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class AppBarComponent {
   constructor(private bottomSheet: MatBottomSheet) {}
   title: string = 'PipeLine';
+  private bottomSheetRef: MatBottomSheetRef<BottomSheetComponent> | null = null;
   // Status
   runStatus: boolean = true;
   // side nav
@@ -46,7 +48,12 @@ export class AppBarComponent {
   }
 
   // Bottom Sheet
-  openBottomSheet(): void {
-    this.bottomSheet.open(BottomSheetComponent);
+  toggleBottomSheet(): void {
+    if (this.bottomSheetRef) {
+      this.bottomSheetRef.dismiss();
+      this.bottomSheetRef = null;
+    } else {
+      this.bottomSheetRef = this.bottomSheet.open(BottomSheetComponent);
+    }
   }
 }
