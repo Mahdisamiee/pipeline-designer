@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.mat-bottom-sheet-container {
+  width: 100vw; /* Full viewport width */
+  max-width: 100vw; /* Ensure it doesn't exceed the viewport width */
+  min-width: none;
+}
+
+.mat-bottom-sheet-container-large {
+  max-width: 100vw !important;
+}
