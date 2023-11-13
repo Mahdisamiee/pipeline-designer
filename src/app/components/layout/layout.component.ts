@@ -6,8 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 // Module Imports
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { AppBarComponent } from '../app-bar/app-bar.component';
-import { DetailSideNavComponent } from '../detail-side-nav/detail-side-nav.component';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 /** @title Respond to viewport changes with BreakpointObserver */
@@ -18,7 +17,6 @@ import { CommonModule } from '@angular/common';
     RouterOutlet,
     NavBarComponent,
     AppBarComponent,
-    DetailSideNavComponent,
   ],
   templateUrl: 'layout.component.html',
   styleUrls: ['layout.component.css'],
@@ -28,12 +26,7 @@ export class LayoutComponent implements OnDestroy {
   destroyed = new Subject<void>();
   currentScreenSize: string;
 
-  @ViewChild('sideNav') sideNav: DetailSideNavComponent;
-
-  toggleSideNav() {
-    this.sideNav.drawer.toggle();
-    console.log(this.sideNav.drawer);
-  }
+  
 
   // Create a map to display breakpoint names for demonstration purposes.
   displayNameMap = new Map([
