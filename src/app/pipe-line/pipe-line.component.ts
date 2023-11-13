@@ -5,7 +5,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Node, Graph, Shape } from '@antv/x6';
+import { Node, Graph, Shape, Edge } from '@antv/x6';
 import { Stencil } from '@antv/x6-plugin-stencil';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,25 +30,48 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
   private graph!: Graph;
 
   private openInitNodeSelectionDialog(initNode: Node): void {
+    // open dialog to show DataSources
     const dialogRef = this.dialog.open(NodesDialogComponent, {
-      width: '250px',
+      width: '550px',
       data: {
         items: [
-          { name: 'Data1', color: 'teal', label: 'Data 1' },
-          { name: 'Data2', color: 'orange', label: 'Data 2' },
-          { name: 'Data3', color: 'blue', label: 'Data 3' },
+          {
+            name: 'Data1',
+            color: 'teal',
+            label: 'Data 1',
+            data: { type: 'something 1' },
+          },
+          {
+            name: 'Data2',
+            color: 'orange',
+            label: 'Data 2',
+            data: { type: 'something 2' },
+          },
+          {
+            name: 'Data3',
+            color: 'blue',
+            label: 'Data 3',
+            data: { type: 'something 3' },
+          },
           // Add more items as needed
         ],
       },
     });
 
+    // make Nodes, Edges, after Dialog Closed
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Change initNode attributes based on selection
-        // initNode.attr('body/fill', result.color);
-        initNode.setAttrs({
-          body: { fill: result.color },
-          label: { text: result.label },
+        // initNode.setAttrs({
+        //   body: { fill: result.color },
+        //   label: { text: result.label },
+        // });
+
+        const srcNode = new SrcNode({
+          position: { x: 0, y: 0 },
+          label: result.label,
+          // body: { fill: result.color },
+          data: { type: result.data },
         });
 
         // Add a new DstNode connected to initNode at the center
@@ -57,21 +80,55 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
           label: 'New Destination',
           data: { type: 'destination-node' },
         });
-        this.graph.addNode(dstNode);
-        // this.graph.addEdge({ source: initNode, target: dstNode });
+
+        this.graph.addNodes([srcNode, dstNode]);
+
+        this.graph.removeNode(initNode);
+        // Create new Edge and Add it to graph {source : initNode, target: dstNode}
+        const edge = new Shape.Edge({
+          source: srcNode,
+          target: dstNode,
+          attrs: {
+            line: {
+              stroke: '#5F95FF',
+              strokeWidth: 2,
+              targetMarker: {
+                name: 'classic',
+                size: 7,
+              },
+            },
+          },
+        });
+        this.graph.addEdge(edge);
 
         // center All Items
       }
     });
   }
+
   private openDstNodeSelectionDialog(dstNode: Node): void {
     const dialogRef = this.dialog.open(NodesDialogComponent, {
       width: '250px',
       data: {
         items: [
-          { name: 'Data1', color: 'teal', label: 'Data 1' },
-          { name: 'Data2', color: 'orange', label: 'Data 2' },
-          { name: 'Data3', color: 'blue', label: 'Data 3' },
+          {
+            name: 'Data1',
+            color: 'teal',
+            label: 'Data 1',
+            data: { type: 'something 1' },
+          },
+          {
+            name: 'Data2',
+            color: 'orange',
+            label: 'Data 2',
+            data: { type: 'something 2' },
+          },
+          {
+            name: 'Data3',
+            color: 'blue',
+            label: 'Data 3',
+            data: { type: 'something 3' },
+          },
           // Add more items as needed
         ],
       },
@@ -85,13 +142,82 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
           body: { fill: result.color },
           label: { text: result.label },
         });
+        dstNode.setData(result.data);
 
         // Add a new DstNode connected to initNode at the center
-        
-        this.graph.addNode(dstNode);
+
+        // this.graph.addNode(dstNode);
         // this.graph.addEdge({ source: initNode, target: dstNode });
 
         // center All Items
+      }
+    });
+  }
+
+  private openProcessNodeSelectionDialog(edge: Edge): void {
+    const dialogRef = this.dialog.open(NodesDialogComponent, {
+      width: '500px',
+      height: '500px',
+      data: {
+        items: [
+          {
+            name: 'Process1',
+            color: 'teal',
+            label: 'Process 1',
+            data: { type: 'process-node', info: 'Filter' },
+          },
+          {
+            name: 'Process2',
+            color: 'orange',
+            label: 'Process 2',
+            data: { type: 'process-node', info: 'Filter' },
+          },
+          {
+            name: 'Process3',
+            color: 'blue',
+            label: 'Filter',
+            data: { type: 'process-node', info: 'Filter' },
+          },
+          // Add items for the new dialog
+        ],
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Logic to update the edge based on dialog result
+        // Step 1: Add a Process Node
+        const processNode = new ProcessNode({
+          position: { x: 200, y: 100 }, // Set position as needed
+          label: result.label,
+          data: result.data,
+        });
+        this.graph.addNode(processNode);
+
+        // Step 2: Modify or Replace the Existing Edge
+
+        // Step 3: Add New Edges
+        const srcNode = edge.getSourceNode();
+        const dstNode = edge.getTargetNode();
+
+        const edge1 = new Shape.Edge({
+          source: srcNode,
+          target: processNode,
+          // Set attributes as needed
+          attrs: edge.getAttrs(),
+        });
+
+        const edge2 = new Shape.Edge({
+          source: processNode,
+          target: dstNode,
+          // Set attributes as needed
+          attrs: edge.getAttrs(),
+        });
+
+        this.graph.addEdge(edge1);
+        this.graph.addEdge(edge2);
+        // Assuming 'edge' is the edge that was clicked
+        this.graph.removeEdge(edge);
       }
     });
   }
@@ -115,13 +241,8 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
     // Initialization logic if needed
   }
 
-  ngAfterViewInit(): void {
-    this.initializeGraph();
-    this.createStencil();
-  }
-
   /**
-   * ### Create InitNode and Add to Graph
+   * ### to Create InitNode and Add to Graph
    *  */
   private addInitialNode(): void {
     const initNode = new InitNode({
@@ -132,10 +253,16 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
     this.graph.centerContent();
   }
 
+  /** #### Call the process of create graph and stencil and add to DOM */
+  ngAfterViewInit(): void {
+    this.initializeGraph();
+    // this.createStencil();
+  }
+
   /**
-   * ### Initialize the Graph
-   * #### -settings of graph
-   * #### -graph listeners ( on mousemoves , on click)
+   * #### Initialize the Graph
+   * ##### -settings of graph
+   * ##### -graph listeners ( on mousemoves , on click)
    *
    */
   private initializeGraph(): void {
@@ -148,8 +275,8 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
         visible: true,
         type: 'dot', // 'dot' | 'fixedDot' | 'mesh'
         args: {
-          color: '#a0a0a0', // 网格线/点颜色
-          thickness: 1, // 网格线宽度/网格点大小
+          color: '#a0a0a0',
+          thickness: 1,
         },
       },
       panning: true,
@@ -158,6 +285,7 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
         modifiers: ['ctrl', 'meta'],
       },
       connecting: {
+        allowEdge: false,
         allowBlank: false,
         allowNode: false,
         snap: true,
@@ -171,7 +299,7 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
 
     this.graph.centerContent();
 
-    // ********************Graph Listeners
+    // ********************************* Graph Listeners
     // ************ADD TOOLS to Nodes
     // add remove button */
     this.graph.on('node:mouseenter', ({ node }) => {
@@ -186,13 +314,44 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
     });
 
     //************ */ ADD TOOLS to Edges
-    // add remove button */
+    // add add button */
     this.graph.on('edge:mouseenter', ({ edge }) => {
       edge.addTools({
-        name: 'button-remove',
+        name: 'button',
+        args: {
+          markup: [
+            {
+              tagName: 'circle',
+              selector: 'button',
+              attrs: {
+                r: 10,
+                stroke: '#3498db',
+                strokeWidth: 2,
+                fill: 'white',
+                cursor: 'pointer',
+              },
+            },
+            {
+              tagName: 'text',
+              textContent: '+',
+              selector: 'icon',
+              attrs: {
+                fill: '#3498db',
+                fontSize: 10,
+                textAnchor: 'middle',
+                pointerEvents: 'none',
+                y: '0.3em',
+              },
+            },
+          ],
+          distance: '50%',
+          x: '50%',
+          y: '50%',
+          onClick: () => this.openProcessNodeSelectionDialog(edge),
+        },
       });
     });
-    // Delete remove Button */
+    // Delete edge Tools */
     this.graph.on('edge:mouseleave', ({ edge }) => {
       edge.removeTools();
     });
@@ -204,11 +363,9 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
       if (node.data.type === 'init-node') {
         // DO Changes here
         this.openInitNodeSelectionDialog(node);
-      }
-      else if(node.data.type === "destination-node"){
+      } else if (node.data.type === 'destination-node') {
         this.openDstNodeSelectionDialog(node);
       }
-
     });
     // watch if all nodes removed, Add InitNode
     this.graph.on('node:removed', () => {
@@ -258,7 +415,6 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
       'destination'
     );
   }
-
 }
 
 /**
@@ -270,26 +426,26 @@ class InitNode extends Shape.Rect {
   constructor(metadata: Node.Metadata) {
     super({
       ...{
-        width: 100,
-        height: 40,
+        width: 180,
+        height: 70,
         attrs: {
           body: {
-            fill: 'green',
+            fill: '#efe',
             stroke: '#55ffcd',
             strokeWidth: 2,
             rx: 10,
             ry: 10,
           },
         },
-        ports: {
-          groups: {
-            out: {
-              position: { name: 'right' },
-              attrs: { circle: { magnet: true, r: 8, fill: '#eee' } },
-            },
-          },
-          items: [{ id: 'output-port', group: 'out' }],
-        },
+        // ports: {
+        //   groups: {
+        //     out: {
+        //       position: { name: 'right' },
+        //       attrs: { circle: { magnet: true, r: 8, fill: '#eee' } },
+        //     },
+        //   },
+        //   items: [{ id: 'output-port', group: 'out' }],
+        // },
       },
       ...metadata,
     });
@@ -300,26 +456,26 @@ class SrcNode extends Shape.Rect {
   constructor(metadata: Node.Metadata) {
     super({
       ...{
-        width: 100,
-        height: 40,
+        width: 180,
+        height: 70,
         attrs: {
           body: {
-            fill: '#55abcd',
+            fill: '#efe',
             stroke: '#55ffcd',
             strokeWidth: 2,
             rx: 10,
             ry: 10,
           },
         },
-        ports: {
-          groups: {
-            out: {
-              position: { name: 'right' },
-              attrs: { circle: { magnet: true, r: 8, fill: '#eee' } },
-            },
-          },
-          items: [{ id: 'output-port', group: 'out' }],
-        },
+        // ports: {
+        //   groups: {
+        //     out: {
+        //       position: { name: 'right' },
+        //       attrs: { circle: { magnet: true, r: 8, fill: '#eee' } },
+        //     },
+        //   },
+        //   items: [{ id: 'output-port', group: 'out' }],
+        // },
       },
       ...metadata,
     });
@@ -341,22 +497,22 @@ class ProcessNode extends Shape.Rect {
             ry: 20,
           },
         },
-        ports: {
-          groups: {
-            out: {
-              position: { name: 'right' },
-              attrs: { circle: { magnet: true, r: 8, fill: '#eee' } },
-            },
-            in: {
-              position: { name: 'left' },
-              attrs: { circle: { magnet: 'passive', r: 8, fill: '#eee' } },
-            },
-          },
-          items: [
-            { id: 'output-port', group: 'out' },
-            { id: 'input-port', group: 'in' },
-          ],
-        },
+        // ports: {
+        //   groups: {
+        //     out: {
+        //       position: { name: 'right' },
+        //       attrs: { circle: { magnet: true, r: 8, fill: '#eee' } },
+        //     },
+        //     in: {
+        //       position: { name: 'left' },
+        //       attrs: { circle: { magnet: 'passive', r: 8, fill: '#eee' } },
+        //     },
+        //   },
+        //   items: [
+        //     { id: 'output-port', group: 'out' },
+        //     { id: 'input-port', group: 'in' },
+        //   ],
+        // },
       },
       ...metadata,
     });
@@ -367,26 +523,26 @@ class DstNode extends Shape.Rect {
   constructor(metadata: Node.Metadata) {
     super({
       ...{
-        width: 100,
-        height: 40,
+        width: 180,
+        height: 70,
         attrs: {
           body: {
-            fill: '#55abcd',
+            fill: '#eef',
             stroke: '#55ffcd',
             strokeWidth: 2,
             rx: 10,
             ry: 10,
           },
         },
-        ports: {
-          groups: {
-            in: {
-              position: { name: 'left' },
-              attrs: { circle: { magnet: 'passive', r: 8, fill: '#eee' } },
-            },
-          },
-          items: [{ id: 'input-port', group: 'in' }],
-        },
+        // ports: {
+        //   groups: {
+        //     in: {
+        //       position: { name: 'left' },
+        //       attrs: { circle: { magnet: 'passive', r: 8, fill: '#eee' } },
+        //     },
+        //   },
+        //   items: [{ id: 'input-port', group: 'in' }],
+        // },
       },
       ...metadata,
     });
