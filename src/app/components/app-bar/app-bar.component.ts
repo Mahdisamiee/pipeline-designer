@@ -8,6 +8,7 @@ import {
   MatBottomSheetModule,
 } from '@angular/material/bottom-sheet';
 import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-app-bar',
@@ -18,6 +19,8 @@ import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
     MatButtonModule,
     MatIconModule,
     MatBottomSheetModule,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './app-bar.component.html',
   styleUrl: './app-bar.component.css',

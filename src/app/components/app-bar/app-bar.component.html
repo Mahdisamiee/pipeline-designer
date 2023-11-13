@@ -1,7 +1,11 @@
 <mat-toolbar class="appbar">
-  <button mat-icon-button class="appbar-btn">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
+    <a
+    mat-icon-button class="appbar-btn"
+      routerLink="/"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      ><mat-icon>arrow_back</mat-icon></a
+    >
   <span>{{ title }}</span>
   <span class="appbar-spacer"></span>
   <button

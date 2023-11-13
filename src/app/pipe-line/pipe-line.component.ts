@@ -3,6 +3,7 @@ import {
   OnInit,
   AfterViewInit,
   ViewEncapsulation,
+  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Node, Graph, Shape, Edge } from '@antv/x6';
@@ -16,11 +17,19 @@ import {
   DialogData,
   NodesDialogComponent,
 } from './nodes-dialog/nodes-dialog.component';
+import { DetailSideNavComponent } from '../components/detail-side-nav/detail-side-nav.component';
+import { AppBarComponent } from '../components/app-bar/app-bar.component';
 
 @Component({
   selector: 'app-pipe-line',
   standalone: true,
-  imports: [CommonModule, MatSidenavModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MatButtonModule,
+    DetailSideNavComponent,
+    AppBarComponent
+  ],
   templateUrl: './pipe-line.component.html',
   styleUrls: ['./pipe-line.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -29,6 +38,54 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
   constructor(private dialog: MatDialog) {}
   private graph!: Graph;
 
+  // Side Nav functionality
+  @ViewChild('sideNav') sideNav: DetailSideNavComponent;
+
+  toggleSideNav() {
+    this.sideNav.drawer.toggle();
+    console.log(this.sideNav.drawer);
+  }
+
+  /**
+   *
+   */
+  ngOnInit(): void {
+    // Initialization logic if needed
+  }
+
+  // ******************************Graph Functionality*************************
+
+  /** #### Call the process of create graph and stencil and add to DOM */
+  ngAfterViewInit(): void {
+    this.initializeGraph();
+    // this.createStencil();
+  }
+
+  // graph Zooming functionality
+
+  zoomIn(): void {
+    const currentZoom = this.graph.zoom(+0.09);
+    // this.graph.zoom(currentZoom + 0.05);
+    console.log(currentZoom);
+  }
+
+  zoomOut(): void {
+    const currentZoom = this.graph.zoom(-0.09);
+    // this.graph.zoom(currentZoom - 0.05);
+    console.log(currentZoom);
+  }
+
+  /**
+   * ### to Create InitNode and Add to Graph
+   *  */
+  private addInitialNode(): void {
+    const initNode = new InitNode({
+      label: 'Click To Add Source',
+      data: { type: 'init-node' },
+    });
+    this.graph.addNode(initNode);
+    this.graph.centerContent();
+  }
   private openInitNodeSelectionDialog(initNode: Node): void {
     // open dialog to show DataSources
     const dialogRef = this.dialog.open(NodesDialogComponent, {
@@ -221,44 +278,6 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  // none graph functionality
-
-  zoomIn(): void {
-    const currentZoom = this.graph.zoom(+0.09);
-    // this.graph.zoom(currentZoom + 0.05);
-    console.log(currentZoom);
-  }
-
-  zoomOut(): void {
-    const currentZoom = this.graph.zoom(-0.09);
-    // this.graph.zoom(currentZoom - 0.05);
-    console.log(currentZoom);
-  }
-
-  // Graph Functionality
-
-  ngOnInit(): void {
-    // Initialization logic if needed
-  }
-
-  /**
-   * ### to Create InitNode and Add to Graph
-   *  */
-  private addInitialNode(): void {
-    const initNode = new InitNode({
-      label: 'Click To Add Source',
-      data: { type: 'init-node' },
-    });
-    this.graph.addNode(initNode);
-    this.graph.centerContent();
-  }
-
-  /** #### Call the process of create graph and stencil and add to DOM */
-  ngAfterViewInit(): void {
-    this.initializeGraph();
-    // this.createStencil();
-  }
-
   /**
    * #### Initialize the Graph
    * ##### -settings of graph
@@ -279,7 +298,7 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
           thickness: 1,
         },
       },
-      
+
       panning: true,
       mousewheel: {
         enabled: true,
