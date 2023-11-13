@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,13 +22,9 @@ import { PipelineTabsComponent } from '../pipeline-tabs/pipeline-tabs.component'
 export class DetailSideNavComponent {
   showFiller = false;
   sideNavName: string = 'Pipeline Details';
-  @ViewChild('drawer') drawer: MatDrawer;
-
-  toggle() {
-    this.drawer.toggle();
-  }
-
   currentRoute: string;
+  @ViewChild('drawer') drawer: MatDrawer;
+  @Input() pipelineData: {}
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
@@ -37,4 +33,9 @@ export class DetailSideNavComponent {
       }
     });
   }
+
+  toggle() {
+    this.drawer.toggle();
+  }
+
 }

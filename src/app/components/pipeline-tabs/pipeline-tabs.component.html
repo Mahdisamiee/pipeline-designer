@@ -1,5 +1,182 @@
 <mat-tab-group dynamicHeight fitInkBarToContent>
   <!-- here we have unsame content , we couldnt use @*ngFor loops -->
+  @if (pipeLineData.type==="process-node") { @if( pipeLineData.info ===
+  "strings"){
+
+  <mat-tab label="Configuration" class="info-tab">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="info-form">
+      <mat-form-field appearance="outline" class="info-form__field">
+        <mat-select>
+          @for (food of foods; track food) {
+            <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="info-form__field">
+        <mat-label>Step</mat-label>
+        <input matInput formControlName="step" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="info-form__field">
+        <mat-label>Updated</mat-label>
+        <input matInput formControlName="updated" />
+      </mat-form-field>
+
+      <div class="info-form__toggle">
+        <mat-slide-toggle formControlName="sideToggle"></mat-slide-toggle>
+        <mat-label>Compute Semantic Types</mat-label>
+      </div>
+
+      <div class="info-form__buttons">
+        <button
+          mat-flat-button
+          type="button"
+          (click)="onReset()"
+          class="reset-button"
+        >
+          Reset
+        </button>
+        <button
+          mat-flat-button
+          color="accent"
+          type="submit"
+          [disabled]="!myForm.valid"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </mat-tab>
+
+  <mat-tab label="Info">
+    <h3 class="metric-part-title">General</h3>
+    <p class="metric-part-key">Time Spent</p>
+    <p class="metric-part-value">00:00:00</p>
+
+    <h3 class="metric-part-title">Throughput</h3>
+    <div class="metric-box-values">
+      <div class="metric-part-value">
+        <p>00:00:00</p>
+        <p class="metric-part-value-description">record/sec</p>
+      </div>
+      <div class="metric-part-value">
+        <p>00:00:00</p>
+        <p class="metric-part-value-description">bytes/sec</p>
+      </div>
+    </div>
+    <h3 class="metric-part-title">Volume</h3>
+    <div class="metric-box-values">
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">records read</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">bytes read</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">records produced</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">Bytes produced</p>
+      </div>
+    </div>
+
+    <button mat-stroked-button color="primary">view logs</button>
+  </mat-tab>
+  }@else {
+  <mat-tab label="Number Actions" class="info-tab">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="info-form">
+      <mat-form-field appearance="outline" class="info-form__field">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="info-form__field">
+        <mat-label>Step</mat-label>
+        <input matInput formControlName="step" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="info-form__field">
+        <mat-label>Updated</mat-label>
+        <input matInput formControlName="updated" />
+      </mat-form-field>
+
+      <div class="info-form__toggle">
+        <mat-slide-toggle formControlName="sideToggle"></mat-slide-toggle>
+        <mat-label>Compute Semantic Types</mat-label>
+      </div>
+
+      <div class="info-form__buttons">
+        <button
+          mat-flat-button
+          type="button"
+          (click)="onReset()"
+          class="reset-button"
+        >
+          Reset
+        </button>
+        <button
+          mat-flat-button
+          color="accent"
+          type="submit"
+          [disabled]="!myForm.valid"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </mat-tab>
+  <mat-tab label="Statics">
+    <button mat-stroked-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      Add
+    </button>
+    <app-table></app-table>
+  </mat-tab>
+  <mat-tab label="Info">
+    <h3 class="metric-part-title">General</h3>
+    <p class="metric-part-key">Time Spent</p>
+    <p class="metric-part-value">00:00:00</p>
+
+    <h3 class="metric-part-title">Throughput</h3>
+    <div class="metric-box-values">
+      <div class="metric-part-value">
+        <p>00:00:00</p>
+        <p class="metric-part-value-description">record/sec</p>
+      </div>
+      <div class="metric-part-value">
+        <p>00:00:00</p>
+        <p class="metric-part-value-description">bytes/sec</p>
+      </div>
+    </div>
+    <h3 class="metric-part-title">Volume</h3>
+    <div class="metric-box-values">
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">records read</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">bytes read</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">records produced</p>
+      </div>
+      <div class="metric-part-value">
+        <p>0</p>
+        <p class="metric-part-value-description">Bytes produced</p>
+      </div>
+    </div>
+
+    <button mat-stroked-button color="primary">view logs</button>
+  </mat-tab>
+  } } @else if (pipeLineData.type === "source-node" || pipeLineData.type ===
+  "destination-node") {
   <mat-tab label="info" class="info-tab">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="info-form">
       <mat-form-field appearance="outline" class="info-form__field">
@@ -89,4 +266,5 @@
     </button>
     <app-table></app-table>
   </mat-tab>
+  }
 </mat-tab-group>

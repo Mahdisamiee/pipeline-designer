@@ -1,5 +1,5 @@
 <app-app-bar (toggleSideNavEvent)="toggleSideNav()"></app-app-bar>
-<app-detail-side-nav #sideNav>
+<app-detail-side-nav #sideNav [pipelineData]="nodeData">
   <div id="container">
     <div class="graph-btn-box">
       <button

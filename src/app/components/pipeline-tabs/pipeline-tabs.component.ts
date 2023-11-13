@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -32,6 +32,9 @@ import { TableComponent } from './table/table.component';
 })
 export class PipelineTabsComponent implements OnInit {
   myForm: FormGroup;
+  
+  @Input() pipeLineData: any;
+
 
   constructor(private dialog: MatDialog, private formBuilder: FormBuilder) {}
 

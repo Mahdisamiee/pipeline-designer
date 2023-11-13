@@ -26,6 +26,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './app-bar.component.css',
 })
 export class AppBarComponent {
+  constructor(private bottomSheet: MatBottomSheet) {}
   title: string = 'PipeLine';
   // Status
   runStatus: boolean = true;
@@ -33,7 +34,6 @@ export class AppBarComponent {
   @Output() toggleSideNavEvent = new EventEmitter<void>();
   // Bottom Sheet
 
-  constructor(private bottomSheet: MatBottomSheet) {}
 
   // **********************************
   // Status

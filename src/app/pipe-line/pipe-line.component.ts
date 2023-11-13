@@ -28,7 +28,7 @@ import { AppBarComponent } from '../components/app-bar/app-bar.component';
     MatSidenavModule,
     MatButtonModule,
     DetailSideNavComponent,
-    AppBarComponent
+    AppBarComponent,
   ],
   templateUrl: './pipe-line.component.html',
   styleUrls: ['./pipe-line.component.css'],
@@ -37,6 +37,7 @@ import { AppBarComponent } from '../components/app-bar/app-bar.component';
 export class PipeLineComponent implements OnInit, AfterViewInit {
   constructor(private dialog: MatDialog) {}
   private graph!: Graph;
+  nodeData: any = {};
 
   // Side Nav functionality
   @ViewChild('sideNav') sideNav: DetailSideNavComponent;
@@ -81,7 +82,7 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
   private addInitialNode(): void {
     const initNode = new InitNode({
       label: 'Click To Add Source',
-      data: { type: 'init-node' },
+      data: { type: 'init-src-node' },
     });
     this.graph.addNode(initNode);
     this.graph.centerContent();
@@ -90,25 +91,26 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
     // open dialog to show DataSources
     const dialogRef = this.dialog.open(NodesDialogComponent, {
       width: '550px',
+      height: '500px',
       data: {
         items: [
           {
             name: 'Data1',
             color: 'teal',
             label: 'Data 1',
-            data: { type: 'something 1' },
+            data: { type: 'source-node', info: 'src info 1' },
           },
           {
             name: 'Data2',
             color: 'orange',
             label: 'Data 2',
-            data: { type: 'something 2' },
+            data: { type: 'source-node', info: 'src info 2' },
           },
           {
             name: 'Data3',
             color: 'blue',
             label: 'Data 3',
-            data: { type: 'something 3' },
+            data: { type: 'source-node', info: 'src info 3' },
           },
           // Add more items as needed
         ],
@@ -128,14 +130,14 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
           position: { x: 0, y: 0 },
           label: result.label,
           // body: { fill: result.color },
-          data: { type: result.data },
+          data: result.data,
         });
 
         // Add a new DstNode connected to initNode at the center
         const dstNode = new DstNode({
           position: { x: 300, y: 0 },
-          label: 'New Destination',
-          data: { type: 'destination-node' },
+          label: 'Select a Destination',
+          data: { type: 'init-dst-node', info: '' },
         });
 
         this.graph.addNodes([srcNode, dstNode]);
@@ -165,26 +167,27 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
 
   private openDstNodeSelectionDialog(dstNode: Node): void {
     const dialogRef = this.dialog.open(NodesDialogComponent, {
-      width: '250px',
+      width: '500px',
+      height: '500px',
       data: {
         items: [
           {
             name: 'Data1',
             color: 'teal',
             label: 'Data 1',
-            data: { type: 'something 1' },
+            data: { type: 'destination-node', info: 'Dst info 1' },
           },
           {
             name: 'Data2',
             color: 'orange',
             label: 'Data 2',
-            data: { type: 'something 2' },
+            data: { type: 'destination-node', info: 'Dst info 2' },
           },
           {
             name: 'Data3',
             color: 'blue',
             label: 'Data 3',
-            data: { type: 'something 3' },
+            data: { type: 'destination-node', info: 'Dst info 3' },
           },
           // Add more items as needed
         ],
@@ -196,7 +199,7 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
         // Change initNode attributes based on selection
         // initNode.attr('body/fill', result.color);
         dstNode.setAttrs({
-          body: { fill: result.color },
+          // body: { fill: result.color },
           label: { text: result.label },
         });
         dstNode.setData(result.data);
@@ -220,20 +223,20 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
           {
             name: 'Process1',
             color: 'teal',
-            label: 'Process 1',
-            data: { type: 'process-node', info: 'Filter' },
+            label: 'Strings',
+            data: { type: 'process-node', info: 'strings' },
           },
           {
             name: 'Process2',
             color: 'orange',
-            label: 'Process 2',
-            data: { type: 'process-node', info: 'Filter' },
+            label: 'Numbers',
+            data: { type: 'process-node', info: 'numbers' },
           },
           {
             name: 'Process3',
             color: 'blue',
-            label: 'Filter',
-            data: { type: 'process-node', info: 'Filter' },
+            label: 'Math',
+            data: { type: 'process-node', info: 'math' },
           },
           // Add items for the new dialog
         ],
@@ -380,12 +383,13 @@ export class PipeLineComponent implements OnInit, AfterViewInit {
     // **************** Node Status
     // open Dialog window to add Sources
     this.graph.on('node:click', ({ node }) => {
-      console.log(node.data);
-      if (node.data.type === 'init-node') {
-        // DO Changes here
+      if (node.data.type === 'init-src-node') {
         this.openInitNodeSelectionDialog(node);
-      } else if (node.data.type === 'destination-node') {
+      } else if (node.data.type === 'init-dst-node') {
         this.openDstNodeSelectionDialog(node);
+      } else {
+        console.log('Its it', node.data);
+        this.nodeData = node.getData();
       }
     });
     // watch if all nodes removed, Add InitNode
