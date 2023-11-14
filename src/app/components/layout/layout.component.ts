@@ -1,9 +1,9 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 // Module Imports
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { AppBarComponent } from '../app-bar/app-bar.component';
 import { RouterOutlet } from '@angular/router';
@@ -28,7 +28,7 @@ export class LayoutComponent implements OnDestroy {
 
   
 
-  // Create a map to display breakpoint names for demonstration purposes.
+  // Map to display breakpoint names
   displayNameMap = new Map([
     [Breakpoints.XSmall, 'XSmall'],
     [Breakpoints.Small, 'Small'],
@@ -56,6 +56,7 @@ export class LayoutComponent implements OnDestroy {
         }
       });
   }
+    
 
   ngOnDestroy() {
     this.destroyed.next();
