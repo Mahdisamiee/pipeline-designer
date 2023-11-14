@@ -1,9 +1,10 @@
 .layout {
     min-height: 100vh;
-    background-color: rgb(221, 106, 35);
+    background-color: #fff
 }
 .main {
-    background-color: #a5bfef;
+    background: rgb(6,250,222);
+background: radial-gradient(circle, rgba(6,250,222,1) 0%, rgba(132,45,253,1) 100%);
     padding: 0;
     max-width: 100%;
     min-height: 95vh;
