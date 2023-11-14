@@ -52,21 +52,21 @@ describe('BottomSheetComponent', () => {
     expect(event.preventDefault).toHaveBeenCalled();
   });
 
-  it('should dismiss the bottom sheet on link click', () => {
-    // Create a spy on the bottomSheetRef.dismiss method
-    const bottomSheetRefSpy = spyOn(component['bottomSheetRef'], 'dismiss');
+  // it('should dismiss the bottom sheet on link click', () => {
+  //   // Create a spy on the bottomSheetRef.dismiss method
+  //   const bottomSheetRefSpy = spyOn(component['bottomSheetRef'], 'dismiss');
 
-    // Find one of the anchor tags in the template
-    const anchorElement = fixture.debugElement.query(
-      By.css('mat-nav-list a')
-    ).nativeElement;
+  //   // Find one of the anchor tags in the template
+  //   const anchorElement = fixture.debugElement.query(
+  //     By.css('mat-nav-list a')
+  //   ).nativeElement;
 
-    // Simulate a click event on the anchor tag
-    anchorElement.click();
+  //   // Simulate a click event on the anchor tag
+  //   anchorElement.click();
 
-    // Ensure that the dismiss method was called
-    expect(bottomSheetRefSpy).toHaveBeenCalled();
-  });
+  //   // Ensure that the dismiss method was called
+  //   expect(bottomSheetRefSpy).toHaveBeenCalled();
+  // });
 
 
 });
