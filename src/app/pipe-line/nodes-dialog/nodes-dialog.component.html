@@ -1,6 +1,11 @@
 <h1 mat-dialog-title>Select Item</h1>
+
+<button mat-icon-button (click)="closeDialog()" class="close-button">
+  <mat-icon>close</mat-icon>
+</button>
 <div mat-dialog-content>
   <mat-list>
+    <!-- Loop through each item and handle selection -->
     <mat-list-item *ngFor="let item of data.items" (click)="selectItem(item)">
       <div class="list-item">
         <mat-icon class="icon">check_circle</mat-icon>

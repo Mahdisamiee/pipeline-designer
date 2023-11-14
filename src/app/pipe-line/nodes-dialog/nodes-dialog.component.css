@@ -10,23 +10,25 @@
   align-items: center;
   justify-content: start;
   gap: 10px;
-    margin: 5px;
-}
-.list-item span {
-    background-color: gren;
+  margin: 5px;
+  padding: 5px 0px;
 }
 
 .list-item:hover {
   background-color: #f5f5f5;
 }
 
+.close-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
 mat-icon {
-  color: green;
+  color: rgb(0, 128, 111);
   position: relative;
-  background-color: gray;
 }
 
 hr {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 5px 0px;
 }
