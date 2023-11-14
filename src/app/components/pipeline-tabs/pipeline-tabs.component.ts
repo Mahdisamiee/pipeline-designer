@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+// Material Design Module
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -9,20 +10,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-
-// MY Components
+// Components
 import { DialogComponent } from './dialog/dialog.component';
 import { TableComponent } from './table/table.component';
-
 // interfaces
-interface StringsFilter {
+interface SelectOptions {
   value: string;
   viewValue: string;
 }
-interface Fields {
-  value: string;
-  viewValue: string;
-}
+
 
 @Component({
   selector: 'app-pipeline-tabs',
@@ -50,7 +46,7 @@ export class PipelineTabsComponent implements OnInit {
     info: string;
   };
 
-  filters: StringsFilter[] = [
+  filters: SelectOptions[] = [
     { value: 'ext-1', viewValue: 'Add Extra Character' },
     { value: 'up-1', viewValue: 'Change to UpperCase' },
     { value: 'law-2', viewValue: 'Change to LowerCase' },
@@ -62,11 +58,11 @@ export class PipelineTabsComponent implements OnInit {
     { value: 'remov-2', viewValue: 'Remove Part of Text' },
     { value: 'maPat-2', viewValue: 'Match Pattern' },
   ];
-  fields: Fields[] = [
+  fields: SelectOptions[] = [
     { value: 'ext-1', viewValue: 'String 1' },
     { value: 'up-1', viewValue: 'string 2 data' },
   ];
-  positions: Fields[] = [
+  positions: SelectOptions[] = [
     { value: 'left', viewValue: 'Left' },
     { value: 'right', viewValue: 'Right' },
   ];
