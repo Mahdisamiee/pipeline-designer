@@ -1,4 +1,4 @@
-<mat-tab-group dynamicHeight fitInkBarToContent>
+<mat-tab-group dynamicHeight fitInkBarToContent >
   <!-- here we have unsame content , we couldnt use @*ngFor loops -->
   @if (pipelineData.type==="process-node") { @if( pipelineData.info ===
   "strings"){
@@ -112,46 +112,23 @@
   </mat-tab>
   }@else {
   <mat-tab label="Number Actions" class="info-tab">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="info-form">
-      <mat-form-field appearance="outline" class="info-form__field">
-        <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-      </mat-form-field>
+    <div class="info-form">
+      <mat-label>Description</mat-label>
+      <textarea matInput></textarea>
 
-      <mat-form-field appearance="outline" class="info-form__field">
-        <mat-label>Step</mat-label>
-        <input matInput formControlName="step" />
-      </mat-form-field>
+      <mat-label>Step</mat-label>
+      <input matInput />
 
-      <mat-form-field appearance="outline" class="info-form__field">
-        <mat-label>Updated</mat-label>
-        <input matInput formControlName="updated" />
-      </mat-form-field>
-
-      <div class="info-form__toggle">
-        <mat-slide-toggle formControlName="sideToggle"></mat-slide-toggle>
-        <mat-label>Compute Semantic Types</mat-label>
-      </div>
+      <mat-label>Updated</mat-label>
+      <input matInput />
 
       <div class="info-form__buttons">
-        <button
-          mat-flat-button
-          type="button"
-          (click)="onReset()"
-          class="reset-button"
-        >
+        <button mat-flat-button type="button" class="reset-button">
           Reset
         </button>
-        <button
-          mat-flat-button
-          color="accent"
-          type="submit"
-          [disabled]="!myForm.valid"
-        >
-          Save
-        </button>
+        <button mat-flat-button color="accent" type="submit">Save</button>
       </div>
-    </form>
+    </div>
   </mat-tab>
   <mat-tab label="Statics">
     <button mat-stroked-button color="primary" (click)="openDialog()">
@@ -201,46 +178,34 @@
   } } @else if (pipelineData.type === "source-node" || pipelineData.type ===
   "destination-node") {
   <mat-tab label="info" class="info-tab">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="info-form">
+    <div class="info-form">
       <mat-form-field appearance="outline" class="info-form__field">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
+        <textarea matInput></textarea>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="info-form__field">
         <mat-label>Step</mat-label>
-        <input matInput formControlName="step" />
+        <input matInput />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="info-form__field">
         <mat-label>Updated</mat-label>
-        <input matInput formControlName="updated" />
+        <input matInput />
       </mat-form-field>
 
       <div class="info-form__toggle">
-        <mat-slide-toggle formControlName="sideToggle"></mat-slide-toggle>
+        <mat-slide-toggle></mat-slide-toggle>
         <mat-label>Compute Semantic Types</mat-label>
       </div>
 
       <div class="info-form__buttons">
-        <button
-          mat-flat-button
-          type="button"
-          (click)="onReset()"
-          class="reset-button"
-        >
+        <button mat-flat-button type="button" class="reset-button">
           Reset
         </button>
-        <button
-          mat-flat-button
-          color="accent"
-          type="submit"
-          [disabled]="!myForm.valid"
-        >
-          Save
-        </button>
+        <button mat-flat-button color="accent" type="submit">Save</button>
       </div>
-    </form>
+    </div>
   </mat-tab>
 
   <mat-tab label="Metrics">

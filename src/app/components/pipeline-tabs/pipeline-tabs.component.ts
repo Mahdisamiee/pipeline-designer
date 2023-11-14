@@ -45,7 +45,10 @@ interface Fields {
 export class PipelineTabsComponent implements OnInit {
   myForm: FormGroup;
 
-  @Input() pipelineData: { type: string; info: string };
+  @Input() pipelineData: {
+    type: 'process-node' | 'source-node' | 'destination-node';
+    info: string;
+  };
 
   filters: StringsFilter[] = [
     { value: 'ext-1', viewValue: 'Add Extra Character' },

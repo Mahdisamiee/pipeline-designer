@@ -24,7 +24,7 @@ export class DetailSideNavComponent {
   sideNavName: string = 'Pipeline Details';
   currentRoute: string;
   @ViewChild('drawer') drawer: MatDrawer;
-  @Input() pipelineData: { type: string; info: string };
+  @Input() pipelineData: { type: 'process-node' | 'source-node' | 'destination-node'; info: string };
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
