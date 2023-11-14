@@ -16,7 +16,7 @@ export class BottomSheetComponent {
   ) {}
 
   openLink(event: MouseEvent): void {
-    this.bottomSheetRef.dismiss();
     event.preventDefault();
+    this.bottomSheetRef.dismiss();
   }
 }
