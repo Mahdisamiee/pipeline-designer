@@ -19,7 +19,6 @@ interface SelectOptions {
   viewValue: string;
 }
 
-
 @Component({
   selector: 'app-pipeline-tabs',
   standalone: true,
@@ -109,7 +108,8 @@ export class PipelineTabsComponent implements OnInit {
    */
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '500px',
+      width: '250px',
+      height: '300px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

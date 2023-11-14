@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 interface Variable {
   name: string;
@@ -11,7 +12,7 @@ interface Variable {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatIconModule],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
 })
