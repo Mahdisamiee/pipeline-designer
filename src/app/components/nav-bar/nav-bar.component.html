@@ -22,7 +22,7 @@
     mat-flat-button
     [matMenuTriggerFor]="menu"
     aria-label="Profile"
-    class="navbar-menu-button"
+    class="navbar-menu-button trigger-menu"
   >
     <mat-icon>person</mat-icon>
     <!-- this should be a variable of name -->
@@ -37,6 +37,7 @@
       <!-- <mat-icon>dialpad</mat-icon> -->
 
       <a
+        class="router-link"
         routerLink="/pipeline-designer"
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
