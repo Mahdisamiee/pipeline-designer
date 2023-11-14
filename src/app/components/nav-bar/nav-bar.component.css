@@ -2,31 +2,31 @@
   flex: 1 1 auto;
 }
 
-.navbar-logo{
-    margin: 10px 20px;
+.navbar-logo {
+  margin: 10px 20px;
 }
 
 .navbar-button-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 10px;
 }
 
 .navbar-menu-button span {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.menu button{
-    color: #666;
+.menu button {
+  color: #666;
 }
 
 .vl {
-    border-left: 2px solid white;
-    height: 100%;
-    min-height: 20px;
-    margin: 0px 10px;
+  border-left: 2px solid white;
+  height: 100%;
+  min-height: 20px;
+  margin: 0px 10px;
 }
